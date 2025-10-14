@@ -24,18 +24,13 @@ import {
   socketAuthMiddleware,
 } from "./controllers/socketController.js";
 
+const API_URL = 'http://localhost:5001/api';
+
 // Load environment variables
 dotenv.config();
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: ["http://localhost:5173", "http://localhost:5174"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
-});
 
 // Security middleware
 app.use(
@@ -63,15 +58,23 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-// CORS configuration
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
-    credentials: true,
+// CORS options
+const corsOptions = {
+    origin: ["http://localhost:5173"], // Frontend URL
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+    credentials: true, // Allow cookies and credentials
+};
+
+// Apply CORS middleware
+//app.use(cors(corsOptions));
+app.use(cors());
+
+app.options("*", cors(corsOptions));
+
+// Socket.IO CORS configuration
+const io = new Server(server, {
+    cors: corsOptions,
+});
 
 // Body parsing middleware
 app.use(express.json({ limit: "10mb" }));
@@ -131,8 +134,9 @@ const connectDB = async () => {
   }
 };
 
+
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 const startServer = async () => {
   try {

@@ -1,0 +1,32 @@
+Form data requires "python-multipart" to be installed. 
+You can install "python-multipart" with: 
+
+pip install python-multipart
+
+Traceback (most recent call last):
+  File "/Users/vspa/Desktop/Venus-AI/python-services/ai-service/main.py", line 134, in <module>
+    from pdf_extract import router as pdf_router  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vspa/Desktop/Venus-AI/python-services/ai-service/pdf_extract.py", line 17, in <module>
+    @router.post("/extract/pdf", response_model=PdfExtractResponse)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vspa/Desktop/Venus-AI/python-services/venv/lib/python3.11/site-packages/fastapi/routing.py", line 995, in decorator
+    self.add_api_route(
+  File "/Users/vspa/Desktop/Venus-AI/python-services/venv/lib/python3.11/site-packages/fastapi/routing.py", line 934, in add_api_route
+    route = route_class(
+            ^^^^^^^^^^^^
+  File "/Users/vspa/Desktop/Venus-AI/python-services/venv/lib/python3.11/site-packages/fastapi/routing.py", line 555, in __init__
+    self.dependant = get_dependant(path=self.path_format, call=self.endpoint)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vspa/Desktop/Venus-AI/python-services/venv/lib/python3.11/site-packages/fastapi/dependencies/utils.py", line 285, in get_dependant
+    param_details = analyze_param(
+                    ^^^^^^^^^^^^^^
+  File "/Users/vspa/Desktop/Venus-AI/python-services/venv/lib/python3.11/site-packages/fastapi/dependencies/utils.py", line 482, in analyze_param
+    ensure_multipart_is_installed()
+  File "/Users/vspa/Desktop/Venus-AI/python-services/venv/lib/python3.11/site-packages/fastapi/dependencies/utils.py", line 115, in ensure_multipart_is_installed
+    raise RuntimeError(multipart_not_installed_error) from None
+RuntimeError: Form data requires "python-multipart" to be installed. 
+You can install "python-multipart" with: 
+
+pip install python-multipart
+
